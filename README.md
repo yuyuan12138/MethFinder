@@ -1,9 +1,6 @@
 # MethFinder
 
-## Table of Contents
-
 - [MethFinder](#methfinder)
-  - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Basic Dictionary](#basic-dictionary)
   - [Get Started](#get-started)
