@@ -7,6 +7,7 @@
     - [Installation](#installation)
     - [Training the Model](#training-the-model)
     - [View Result](#view-result)
+  - [TODO](#todo)
 
 ## Introduction
 
@@ -69,3 +70,10 @@ python train.py --data 4mC_C.equisetifolia --epochs 50 --batch_size 512 --learni
 ### View Result
 
 After training, there will generate a file `results.csv` which you can see the best performance in ACC, SN, SP, AUC, MCC and F1-Score that also printed on your console. Meanwhile, you can see the best trained-model in a folder **models**.
+
+## TODO
+
+Here is something should be upgraded.
+
+- [ ] Add article link and weblink.
+- [ ] Commit drawing functions.
