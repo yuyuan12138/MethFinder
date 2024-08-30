@@ -49,7 +49,7 @@ To set up the environment, follow these steps:
 
 3. **Install the required packages**:
 
-   This project uses PyTorch 1.12.0+cu116. You may choose a compatible version if necessary.
+   This project uses PyTorch 1.12.0+cu116. You may choose a compatible version if necessary. Here is the link. [Pytorch](https://pytorch.org/get-started/locally/).
 
     ```bash
     pip install -r requirements.txt
