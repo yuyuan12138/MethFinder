@@ -55,9 +55,3 @@ To train the model, run the `main.py` script. This script initializes the model,
 ```bash
 python main.py
 ```
-
-<style>
-p {
-    font-family: "Times New Roman", serif;
-}
-</style>
