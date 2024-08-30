@@ -15,7 +15,7 @@ class Config():
                                      '6mA_Tolypocladium', '6mA_Xoc_BLS256'])
 
         # Training configuration arguments
-        parser.add_argument('--epochs', '-ep', default=200, type=int, help='Number of training epochs.')
+        parser.add_argument('--epochs', '-ep', default=100, type=int, help='Number of training epochs.')
         parser.add_argument('--batch_size', '-bs', default=512, type=int, help='Batch size for training.')
         parser.add_argument('--learning_rate', '-lr', default=1e-4, type=float, help='Learning rate for optimizer.')
          
