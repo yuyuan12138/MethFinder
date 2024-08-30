@@ -6,7 +6,7 @@
   - [Getting Started](#getting-started)
     - [Installation](#installation)
     - [Training the Model](#training-the-model)
-      - [Command-Line Arguments:](#command-line-arguments)
+      - [Command-Line Arguments](#command-line-arguments)
     - [Viewing Results](#viewing-results)
   - [Future Work](#future-work)
 
@@ -63,7 +63,7 @@ To train the model, run the `train.py` script. This script initializes the model
 python train.py --data 4mC_C.equisetifolia --epochs 50 --batch_size 512 --learning_rate 1e-4
 ```
 
-#### Command-Line Arguments:
+#### Command-Line Arguments
 
 1. `--data/-d`: Choose the dataset to train on. Available options are: `['4mC_C.equisetifolia', '4mC_F.vesca', '4mC_S.cerevisiae', '4mC_Tolypocladium', '5hmC_H.sapiens', '5hmC_M.musculus', '6mA_A.thaliana', '6mA_C.elegans', '6mA_C.equisetifolia', '6mA_D.melanogaster', '6mA_F.vesca', '6mA_H.sapiens', '6mA_R.chinensis', '6mA_S.cerevisiae', '6mA_T.thermophile', '6mA_Tolypocladium', '6mA_Xoc_BLS256']`
 2. `--epochs/-ep`: Set the number of epochs, e.g., `--epochs 50`.
