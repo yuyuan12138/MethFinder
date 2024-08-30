@@ -62,6 +62,7 @@ class Main():
     def _set_optimizer_(self):
         # Set the optimizer to Adam with a learning rate specified in config
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=config.lr)
+        self.optimizer.param_groups[0]['capturable'] = True
 
     def _load_state_dict_to_net_(self):
         # Load state dictionaries for model, criterion, and optimizer from a file if not in combined mode
