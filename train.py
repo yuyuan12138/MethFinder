@@ -3,17 +3,18 @@ import numpy as np
 import os
 import re
 from sklearn.metrics import precision_score, recall_score, f1_score, matthews_corrcoef, confusion_matrix, roc_auc_score
-from utils import set_seed, save_model, load_model
+from utils import set_seed, save_model, load_model, delete_all_previous_folder_files, save_umap_pickles
+from utils import draw_acc_loss_line, draw_umap
 from data import get_dataloader
 from model import Net
 from config import config
-import matplotlib.pyplot as plt
 
 class Main():
-    def __init__(self, seed: int = 114514) -> None:
+    def __init__(self) -> None:
         # Set the random seed for reproducibility
-        set_seed(seed)
-        self.seed = seed
+        set_seed(config.seed)
+
+        self._initialize_folder_()
         
         # Load model configuration and paths
         self._load_model_()
@@ -32,6 +33,25 @@ class Main():
         
         # Load the pretrained model weights if available
         self._load_state_dict_to_net_()
+
+        self.train_test()
+
+        if config.is_drawing_plot:
+            draw_acc_loss_line(self.train_acc_table, self.test_acc_table, self.train_loss_table, self.test_loss_table)
+        
+        if config.is_umap:
+            draw_umap('./umap')
+
+    def _initialize_folder_(self):
+        delete_all_previous_folder_files(['./umap', "./models", './acc_loss_plot'])
+        
+        os.makedirs("./models")
+
+        if config.is_umap:
+            os.makedirs('./umap/pickles')
+            os.makedirs('./umap/figures')
+        if config.is_drawing_plot:
+            os.makedirs('./acc_loss_plot')
     
     def _load_model_(self):
         # Determine the model file path based on whether combined mode is enabled
@@ -71,7 +91,13 @@ class Main():
             print(self.model.load_state_dict(state_dict['model_state_dict']))
             print(self.criterion.load_state_dict(state_dict['criterion_state_dict']))
             print(self.optimizer.load_state_dict(state_dict['optimizer_state_dict']))
-            self.optimizer.param_groups[0]['capturable'] = True
+            if config.device == 'cuda':
+                self.optimizer.param_groups[0]['capturable'] = True
+            else:
+                self.optimizer.param_groups[0]['capturable'] = False
+    
+    def _umap_(self):
+        pass
     
     def train_test(self):
         # Initialize tables to store loss and accuracy for training and testing
@@ -98,7 +124,7 @@ class Main():
                 inputs, labels = train_data
 
                 self.optimizer.zero_grad()  # Zero the parameter gradients
-                outputs, _ = self.model(inputs)  # Forward pass
+                outputs, _, _ = self.model(inputs)  # Forward pass
                 _, predicted = torch.max(outputs, 1)  # Get predictions
                 loss = self.criterion(outputs, labels)  # Calculate loss
 
@@ -130,6 +156,8 @@ class Main():
             self.labels_all = np.empty(0)
             self.predicted_all = np.empty(0)
 
+            umap_analysis = []
+
             # Iterate over the testing data loader
             with torch.no_grad():
                 for i, test_data in enumerate(self.test_loader):
@@ -137,7 +165,9 @@ class Main():
 
                     self.labels_all = np.concatenate((self.labels_all, labels.cpu().numpy()))  # Store true labels
 
-                    outputs, y = self.model(inputs)  # Forward pass
+                    outputs, _, umap_features = self.model(inputs)  # Forward pass
+
+                    umap_analysis.extend(umap_features.tolist())
 
                     self.outputs_all = np.concatenate((self.outputs_all, outputs.cpu().numpy()))  # Store outputs
 
@@ -169,10 +199,17 @@ class Main():
                 if val_accuracy > max_acc:
                     print('Found optimized model on accuracy. Saving state_dict to file.')
                     save_model(state_dict, f'./models/{config.data_name}_ACC_best.pt')
+                    
+                    if config.is_umap:
+                        save_umap_pickles(folder_path="./umap/pickles", umap_analysis=umap_analysis, name="ACC")
 
                 if f1 > max_f1:
                     print('Found optimized model on F1-score. Saving state_dict to file.')
                     save_model(state_dict, f'./models/{config.data_name}_F1_best.pt')
+                    
+                    if config.is_umap:
+                        save_umap_pickles(folder_path="./umap/pickles", umap_analysis=umap_analysis, name="F1")
+
 
                 # Calculate additional metrics for model evaluation
                 sn = recall_score(self.labels_all, self.predicted_all)  # Sensitivity (Recall)
@@ -201,7 +238,7 @@ class Main():
         # Training completed, print the best performance metrics
         print('Finished training. Best performance:')
         print(f'ACC={max_acc:.4f}, SN={sn:.4f}, SP={sp:.4f}, AUC={auc:.4f}, MCC={mcc:.4f}, F1={f1:.4f}')
-        print(f'Seed: {self.seed}')
+        print(f'Seed: {config.seed}')
         
         # Save the results to a CSV file
         with open('results.csv', 'a+') as f:
@@ -216,27 +253,6 @@ class Main():
                 'criterion_state_dict': self.criterion.state_dict()
             }, config.model)
 
-    def draw_acc_loss_line(self):
-        # Draw and save accuracy and loss line plots
-        plt.figure()
-        plt.plot(self.train_acc_table, 'ro-', label='Train accuracy')
-        plt.plot(self.test_acc_table, 'bs-', label='Val accuracy')
-        plt.legend()
-        plt.savefig(config.data_name + '_accuracy.png')
-        plt.show()
-
-        plt.figure()
-        plt.plot(self.train_loss_table, 'ro-', label='Train loss')
-        plt.plot(self.test_loss_table, 'bs-', label='Val loss')
-        plt.legend()
-        plt.savefig(config.data_name + '_loss.png')
-        plt.show()
-
 
 if __name__ == "__main__":
-    main = Main(seed=114514)
-    main.train_test()
-    if config.is_drawing_plot:
-        main.draw_acc_loss_line()
-
-    
+    main = Main()

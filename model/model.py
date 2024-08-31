@@ -112,8 +112,8 @@ class Net(nn.Module):
         x = self.flat(x)
 
         # Final fully connected layers for classification
-        y = x  # This line is redundant; consider removing if not needed
+        umap_features = x  
         x = self.fc(x)
 
         # Return output and attention probabilities from the transformer (if specific transformer is used)
-        return x, self.transformer.layers[0].attn.attention_probs
+        return x, self.transformer.layers[0].attn.attention_probs, umap_features

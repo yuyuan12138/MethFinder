@@ -5,6 +5,8 @@ class Config():
     def __init__(self):
         # Initialize argument parser
         parser = argparse.ArgumentParser(description="The configuration of MethFinder.")
+
+        parser.add_argument('--seed', '-s', default=114514, type=int)
         
         # Dataset argument: Choose from a list of available datasets
         parser.add_argument('--data', '-d', default='4mC_C.equisetifolia', type=str, 
@@ -27,6 +29,10 @@ class Config():
         # Plotting flag argument
         parser.add_argument('--is_drawing_plot', '-dp', action='store_true', 
                             help='Flag to indicate whether to draw plots. Default is False.')
+        
+        # Umap flag argument
+        parser.add_argument('--is_umap', '-iu', action='store_true',
+                            help='Flag to indicate whether to draw umap. Default is False.')
 
         '''Below parameters are used for testing purposes only; you don't need to use them.'''
         # Test arguments (used for debugging or testing purposes)
@@ -48,6 +54,8 @@ class Config():
         self.model = args.model
         self.device = args.device
         self.is_drawing_plot = args.is_drawing_plot
+        self.is_umap = args.is_umap
+        self.seed = args.seed
 
 # Create a config object
 config = Config()

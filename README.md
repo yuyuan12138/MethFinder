@@ -79,4 +79,7 @@ After training, a `results.csv` file will be generated, displaying the best perf
 There are several improvements planned for this repository:
 
 - [ ] Add a link to the article and web resources.
-- [ ] Implement and commit drawing functions for data visualization.
+- [x] Implement and commit drawing functions for data visualization.
+- [ ] Upgrade README.md about config.py.
+- [ ] Add Attention map drawing function.
+- [ ] Upgrade requirements.txt
