@@ -60,7 +60,7 @@ To set up the environment, follow these steps:
 To train the model, run the `train.py` script. This script initializes the model, loads the data, sets the loss function, and begins the training process:
 
 ```bash
-python train.py --data 4mC_C.equisetifolia --epochs 50 --batch_size 512 --learning_rate 1e-4
+python train.py --data 4mC_C.equisetifolia --epochs 50 --batch_size 512 --learning_rate 1e-4 --is_drawing_plot --is_umap
 ```
 
 #### Command-Line Arguments
@@ -69,6 +69,8 @@ python train.py --data 4mC_C.equisetifolia --epochs 50 --batch_size 512 --learni
 2. `--epochs/-ep`: Set the number of epochs, e.g., `--epochs 50`.
 3. `--batch_size/-bs`: Define the batch size, e.g., `--batch_size 512`.
 4. `--learning_rate/-lr`: Set the learning rate, e.g., `--learning_rate 1e-4`.
+5. `--is_drawing_plot/-dp`:
+6. `--is_umap/-iu`:
 
 ### Viewing Results
 
