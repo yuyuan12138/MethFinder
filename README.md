@@ -60,7 +60,7 @@ To set up the environment, follow these steps:
 
 3. **Install the required packages**:
 
-   This project uses PyTorch 1.12.0+cu116. You may choose a compatible version if necessary. Here is the link. [Pytorch](https://pytorch.org/get-started/locally/).
+   This project uses PyTorch 1.12.0+cu116. You may choose a compatible version if necessary. Refer to the official [PyTorch installation guide](https://pytorch.org/get-started/locally/) for more details.
 
     ```bash
     pip install -r requirements.txt
@@ -98,6 +98,5 @@ There are several improvements planned for this repository:
 
 - [ ] Add a link to the article and web resources.
 - [x] Implement and commit drawing functions for data visualization.
-- [x] Upgrade README.md about config.py.
-- [ ] Add Attention map drawing function.
-- [x] Upgrade requirements.txt
+- [x] Upgrade README.md to include more details about `config.py`.
+- [x] Upgrade `requirements.txt` to ensure compatibility with new dependencies.
