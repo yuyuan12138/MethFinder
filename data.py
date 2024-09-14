@@ -15,13 +15,20 @@ def get_dataloader(train_path='train.tsv', test_path='test.tsv') -> list:
     return (train_loader, test_loader)
 
 class MyDataset(Data.Dataset):
-    def process_features(self, features):
-        dna_map = {'A': 0, 'T': 1, 'C': 2, 'G': 3}
-        encoding = torch.zeros((len(features), len(features[0]), 4), dtype=torch.float, device=config.device)
-        for (i, seq) in enumerate(features):
-            for (j, char) in enumerate(seq):
-                encoding[i, j, dna_map[char]] = 1
-        return encoding
+    def process_features(self, sequences):
+        mapping = {'A': 0, 'T': 1, 'C': 2, 'G': 3}
+        onehot_encoded_sequences = []
+        
+        for sequence in sequences:
+            seq_numbers = [mapping[nucleotide] for nucleotide in sequence]
+            seq_array = np.array(seq_numbers)
+            onehot_encoded_array = np.eye(4)[seq_array]
+            onehot_encoded_sequences.append(onehot_encoded_array)
+        
+        onehot_encoded_sequences_array = np.array(onehot_encoded_sequences)
+        onehot_tensor = torch.tensor(onehot_encoded_sequences_array, dtype=torch.float32, device=config.device)
+        
+        return onehot_tensor
 
     def process_data(self, features, labels):
         features = self.process_features(features)
