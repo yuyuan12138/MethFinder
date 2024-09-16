@@ -2,6 +2,7 @@ import torch
 import torch.utils.data as Data
 from config import config
 import pandas as pd
+import numpy as np
 
 def get_dataloader(train_path='train.tsv', test_path='test.tsv') -> list:
     train_data = pd.read_csv(train_path, sep='\t')
