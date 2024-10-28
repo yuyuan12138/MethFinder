@@ -11,17 +11,10 @@ class different_Self_Attention(nn.Module):
     def __init__(self, d_model, nhead, weight=False):
         super(different_Self_Attention, self).__init__()
 
-        # Initialize weight parameter if weight learning is enabled
-        if weight:
-            # Learnable weights initialized with predefined values
-            # self.weight = nn.Parameter(torch.tensor([0.18, 0.64, 0.18]))
-            self.weight = nn.Parameter(torch.tensor([1/3, 1/3, 1/3]))
-        else:
-            self.weight = None
-
         # Initialize parameters and layers
         self.attention_probs = None
         self.nhead = nhead  # Number of attention heads
+        self.weight = weight  # Whether to apply position-specific weights
 
         # Linear layers to compute Q, K, V
         self.w_q = nn.Linear(d_model, d_model)
@@ -49,7 +42,8 @@ class different_Self_Attention(nn.Module):
         V = self.w_v(encoder_outputs)
 
         # Apply position-specific weights if specified
-        if self.weight is not None:
+        if self.weight:
+            weight_artificial = nn.Parameter(torch.tensor([0.18, 0.64, 0.18]))
             # Split Q, K, V into non-important and important sections
             Q_b_1 = Q[:, 0:10, :]
             Q_a = Q[:, 10:31, :]
@@ -61,16 +55,16 @@ class different_Self_Attention(nn.Module):
             V_a = V[:, 10:31, :]
             V_b_2 = V[:, 31:41, :]
 
-            # Concatenate weighted Q, K, Vself.weight
-            Q = torch.concat([self.weight[0] * Q_b_1,
-                              self.weight[1] * Q_a,
-                              self.weight[2] * Q_b_2], dim=1)
-            K = torch.concat([self.weight[0] * K_b_1,
-                              self.weight[1] * K_a,
-                              self.weight[2] * K_b_2], dim=1)
-            V = torch.concat([self.weight[0] * V_b_1,
-                              self.weight[1] * V_a,
-                              self.weight[2] * V_b_2], dim=1)
+            # Concatenate weighted Q, K, V
+            Q = torch.concat([weight_artificial[0] * Q_b_1,
+                              weight_artificial[1] * Q_a,
+                              weight_artificial[2] * Q_b_2], dim=1)
+            K = torch.concat([weight_artificial[0] * K_b_1,
+                              weight_artificial[1] * K_a,
+                              weight_artificial[2] * K_b_2], dim=1)
+            V = torch.concat([weight_artificial[0] * V_b_1,
+                              weight_artificial[1] * V_a,
+                              weight_artificial[2] * V_b_2], dim=1)
 
         # Reshape Q, K, V for multi-head attention and transpose for batch processing
         Q = Q.reshape(batch, num, num_heads, d_head_model).transpose(1, 2)
