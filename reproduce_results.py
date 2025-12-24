@@ -163,7 +163,7 @@ def train_and_evaluate(data_name, seed, metric_type, device):
 
 # ---------------- Main reproduction ----------------
 def main():
-    device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     os.makedirs("./reproduce_results", exist_ok=True)
 
     # ---------- cancer_meth ----------
@@ -195,4 +195,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
