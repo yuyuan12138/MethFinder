@@ -19,7 +19,7 @@ class Config():
     Configuration class for model training and evaluation.
 
     Attributes:
-        device (torch.device): Device used for training (default: 'cuda:1').
+        device (torch.device): Device used for training (default: 'cuda:0').
         epochs (int): Number of training epochs.
         lr (float): Learning rate.
         batch_size (int): Mini-batch size.
@@ -32,7 +32,7 @@ class Config():
     """
 
     # Fixed device assignment
-    device = torch.device('cuda:1')
+    device = torch.device('cuda:0')
 
     def __init__(self):
         parser = argparse.ArgumentParser()
@@ -77,3 +77,4 @@ class Config():
 
 # Global config instance
 config = Config()
+
