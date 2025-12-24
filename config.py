@@ -32,7 +32,8 @@ class Config():
     """
 
     # Fixed device assignment
-    device = torch.device('cuda:0')
+    # device = torch.device('cuda:0')
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     def __init__(self):
         parser = argparse.ArgumentParser()
@@ -77,4 +78,5 @@ class Config():
 
 # Global config instance
 config = Config()
+
 
