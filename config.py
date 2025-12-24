@@ -67,7 +67,7 @@ class Config():
         self.data_path = 'Datasets/'
         self.loop = args.loop
         self.combined = args.combined
-        self.model = './models/' + args.model + '.pth'
+        self.model = None if args.model == 'None' else './models/' + args.model + '.pth'
         self.test = args.test
         self.threshold = args.threshold
         self.seed = args.seed
@@ -78,5 +78,6 @@ class Config():
 
 # Global config instance
 config = Config()
+
 
 
