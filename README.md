@@ -118,14 +118,57 @@ Parameter descriptions；
 
 After execution, the prediction results will be saved in the `./preds/` directory.
   
+### Applying the MethFinder framework for custom training and prediction tasks
 
+To train and predict on your own datasets using the MethFinder framework, make sure the main directory contains:
 
+`models/`, `Datasets/`, `Transformer_weight.py`, `model.py`, `config.py`, `Conv1d_weight.py`, `data.py`, `predict.py`, and `train.py`.
+
+**Step 1 :Prepare your dataset**
+
+Inside the `Datasets/` directory, create a new folder (e.g., `Mydataset`).
+
+Split your data into training and test sets, and save them as `train.tsv` and `test.tsv` respectively.
+
+You can refer to the existing datasets under `Datasets/` as examples.
+
+**Step 2: Train the model**
+
+Run the following command:
+
+```bash
+python train.py -data Mydataset -th_metric MCC
+```
+
+**Parameters:**
+
+* `-data`: specifies the dataset folder name (the one you created).
+* `-th_metric`: specifies which metric to use for binary classification threshold selection.
+
+After training, a model file A.pth will be saved in `./models/`,
+
+and the random seed used during training will be saved in `./seeds/`.
+
+**Step 3: Predict using your trained model**
+
+```bash
+python predict.py -model Mydataset -test xxx.tsv -output xxxx
+```
+
+**Parameters:**
+
+* `-model`: specifies which trained model to use for prediction.
+
+The prediction results will be saved in the `./preds/` directory.
+
+  ***Note:*** The `-model` and `-step` parameters in `predict.py` cannot be used simultaneously.
+
+  For more details on parameter settings, please refer to `config.py`.
 
 ## Future Work
 
 There are several improvements planned for this repository:
 
 - [ ] Add a link to the article and web resources.
-- [x] Implement and commit drawing functions for data visualization.
 - [x] Upgrade README.md to include more details about `config.py`.
 - [x] Upgrade `requirements.txt` to ensure compatibility with new dependencies.
