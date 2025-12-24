@@ -30,7 +30,7 @@ This repository contains the implementation code for **"MethFinder: a DNA-sequen
 8. **`train.py`**: Script for training the models.
 9. **`predict.py`**: A predictor capable of loading and executing pre-trained models.
 10. **`reproduce_reslts.py`**: A script designed for one-click reproduction of all results reported in the paper.
-11. **`environment.txt`**: It includes the required environment dependencies for running MethFinder.
+11. **`environment.yml`**: It includes the required environment dependencies for running MethFinder.
 
 ### Generated Files and Directories
 
@@ -58,8 +58,7 @@ To set up the environment, follow these steps:
 2. **Create a virtual environment** (optional but recommended):
 
     ```bash
-    conda create -n MethFinder python=3.9.12
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    conda env create -f environment.yml
     ```
 
 3. **Install the required packages**:
