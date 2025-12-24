@@ -42,7 +42,7 @@ This repository contains the implementation code for **"MethFinder: a DNA-sequen
 
 ## Getting Started
 
-Follow these steps to reproduce the results from our paper.
+This section details the usage and operation of the MethFinder framework.
 
 ### Installation
 
@@ -70,13 +70,22 @@ To set up the environment, follow these steps:
     pip install -r requirements.txt
     ```
 
-### Training the Model
+### eproducing the results from the MethFinder paper
 
-To train the model, run the `train.py` script. This script initializes the model, loads the data, sets the loss function, and begins the training process:
+To reproduce the results reported in the paper, make sure the following files exist in the main directory:
+
+`Transformer_weight.py`, `model.py`, `config.py`, `Conv1d_weight.py`, `data.py`, and `reproduce_results.py`.
+
+Then simply run:
 
 ```bash
-python train.py --data 4mC_C.equisetifolia --epochs 50 --batch_size 512 --learning_rate 1e-4 --is_drawing_plot --is_umap
+python reproduce_results.py
 ```
+
+This will automatically create a folder named `reproduce_results/`, which contains two `.csv` files:
+
+* `human_reproduce.csv`: Reproduction of the first-stage results (methylation prediction).
+* `cancer_reproduce.csv`: Reproduction of the second-stage results (cancer-specific methylation prediction).
 
 #### Command-Line Arguments
 
