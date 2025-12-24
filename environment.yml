@@ -1,8 +1,5 @@
 name: MethFinder
 channels:
-  - conda-forge
-  - bioconda
-  - r
   - defaults
 dependencies:
   - _libgcc_mutex=0.1
