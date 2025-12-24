@@ -11,7 +11,7 @@ from config import config
 import data
 
 
-# -------------------- 模型加载 --------------------
+# -------------------- Model loading --------------------
 def load_model(model_path, device):
     """Load trained model weights."""
     if not os.path.exists(model_path):
@@ -25,7 +25,7 @@ def load_model(model_path, device):
     return model
 
 
-# -------------------- 通用预测函数 --------------------
+# -------------------- General-purpose prediction function --------------------
 def predict(model, test_loader, device):
     """Run model inference on test set (no labels)."""
     all_probs = []
@@ -43,7 +43,7 @@ def predict(model, test_loader, device):
     return np.array(all_sequences), np.array(all_probs)
 
 
-# -------------------- Step 1: 甲基化预测 --------------------
+# -------------------- Methylation Prediction Module  --------------------
 def methylation_prediction(test_loader, output_path, device, threshold):
     print("[INFO] Step 1: Predicting methylation status using cancer_meth.pth")
     model_path = "./models/cancer_meth.pth"
@@ -64,7 +64,7 @@ def methylation_prediction(test_loader, output_path, device, threshold):
     print(f"[INFO] Methylation predictions saved to: {output_path}")
 
 
-# -------------------- Step 2: 各癌症预测 --------------------
+# -------------------- Driver Methylation Prediction Module --------------------
 def cancer_prediction(test_loader, output_path, device, threshold):
     print("[INFO] Step 2: Predicting cancer-specific associations")
 
@@ -96,7 +96,7 @@ def cancer_prediction(test_loader, output_path, device, threshold):
         results[f"driver_{cancer}_Prob"] = probs
         results[f"driver_{cancer}_Pred"] = labels
 
-    # 合并结果
+    # Merge results
     df = pd.DataFrame({"Sequence": sequences})
     for k, v in results.items():
         df[k] = v
@@ -106,7 +106,7 @@ def cancer_prediction(test_loader, output_path, device, threshold):
     print(f"[INFO] Cancer-type predictions saved to: {output_path}")
 
 
-# -------------------- Step 3: 单模型预测 --------------------
+# -------------------- Predict using the specified model --------------------
 def single_model_prediction(test_loader, model_path, output_path, device, threshold):
     print(f"[INFO] Single-model prediction using {model_path}")
     model = load_model(model_path, device)
@@ -126,16 +126,16 @@ def single_model_prediction(test_loader, model_path, output_path, device, thresh
     print(f"[INFO] Single-model predictions saved to: {output_path}")
 
 
-# -------------------- 主函数 --------------------
+# -------------------- main --------------------
 def main():
     print(f"[INFO] Using device: {config.device}")
     print(f"[INFO] Loading test data from: {config.test}")
 
-    # 加载数据
+    # load data
     test_loader = data.get_test_dataloader(config.test, batch_size=config.batch_size)
     print("[INFO] Test data loaded successfully.")
 
-    # ---------------- 参数互斥检查 ----------------
+    # ---------------- Mutually exclusive parameter check ----------------
     if config.step is not None and config.model is not None:
         print("[ERROR] '-step' and '-model' cannot be used together. Choose one.")
         sys.exit(1)
@@ -143,7 +143,7 @@ def main():
         print("[ERROR] You must specify either '-step' or '-model'.")
         sys.exit(1)
 
-    # ---------------- 执行不同预测模式 ----------------
+    # ---------------- Execute different prediction modes ----------------
     if config.step == 1:
         methylation_prediction(test_loader, config.output, config.device, config.threshold)
     elif config.step == 2:
@@ -163,3 +163,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
