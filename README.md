@@ -37,6 +37,7 @@ This repository contains the implementation code for **"MethFinder: a DNA-sequen
 1. **`seeds`**: MethFinder uses a random seed for each retraining session, and the corresponding training logs are stored in this folder..
 2. **`preds`**: All prediction results will be saved in this folder.
 3. **`reproduce_results`**: All reproduced results will be saved in this folder.
+
 ***`Note`***: These directories are auto-generated upon running the code.
 
 ## Getting Started
