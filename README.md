@@ -70,7 +70,7 @@ To set up the environment, follow these steps:
     pip install -r requirements.txt
     ```
 
-### eproducing the results from the MethFinder paper
+### Eproducing the results from the MethFinder paper
 
 To reproduce the results reported in the paper, make sure the following files exist in the main directory:
 
@@ -87,23 +87,35 @@ This will automatically create a folder named `reproduce_results/`, which contai
 * `human_reproduce.csv`: Reproduction of the first-stage results (methylation prediction).
 * `cancer_reproduce.csv`: Reproduction of the second-stage results (cancer-specific methylation prediction).
 
-#### Command-Line Arguments
 
-1. `--data/-d`: Choose the dataset to train on. Available options are: `['4mC_C.equisetifolia', '4mC_F.vesca', '4mC_S.cerevisiae', '4mC_Tolypocladium', '5hmC_H.sapiens', '5hmC_M.musculus', '6mA_A.thaliana', '6mA_C.elegans', '6mA_C.equisetifolia', '6mA_D.melanogaster', '6mA_F.vesca', '6mA_H.sapiens', '6mA_R.chinensis', '6mA_S.cerevisiae', '6mA_T.thermophile', '6mA_Tolypocladium', '6mA_Xoc_BLS256']`
-2. `--epochs/-ep`: Set the number of epochs, e.g., `--epochs 50`.
-3. `--batch_size/-bs`: Define the batch size, e.g., `--batch_size 512`.
-4. `--learning_rate/-lr`: Set the learning rate, e.g., `--learning_rate 1e-4`.
-5. `--is_drawing_plot/-dp`: Option to enable drawing of accuracy and loss plots during training.
-6. `--is_umap/-iu`: Option to generate UMAP visualizations for the training data.
+### Using the MethFinder tool for methylation prediction
 
-### Viewing Results
+To use MethFinder for methylation prediction, ensure the main directory contains:
 
-After training, the following results and files will be generated:
+`models/`, `Transformer_weight.py`, `model.py`, `config.py`, `Conv1d_weight.py`, `data.py`, and `predict.py`.
 
-1. `results.csv`: Contains the best performance metrics, including ACC, SN, SP, AUC, MCC, and F1-Score. These results are also printed in the console.
-2. `models` Directory: The directory where the best-trained models are saved for future use or evaluation.
-3. `acc_loss_plot` Directory: Stores plots illustrating the accuracy and loss trends over the training period, helping in visualizing the model's performance.
-4. `umap` Directory: Contains UMAP visualizations that represent high-dimensional data in a 2D space for better interpretation and analysis.
+**Standard usage**:
+
+```bash
+python predict.py -step 1 -test xxx.tsv -output xxxx
+```
+
+Parameter descriptions；
+
+* `-step`: specifies which MethFinder module to use:
+  `-step 1` for genome-wide methylation prediction under a cancer background,
+  `-step 2` for identifying cancer-type-specific driver methylation events.
+
+* `-test`: specifies the path to your test file.
+  The test file must be in `.tsv` format with a single column named `text`.
+  You can refer to `test_example.tsv` in the main directory for reference.
+
+* `-output`: specifies the name of the output file.
+
+After execution, the prediction results will be saved in the `./preds/` directory.
+  
+
+
 
 ## Future Work
 
