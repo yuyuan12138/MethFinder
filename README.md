@@ -30,13 +30,14 @@ This repository contains the implementation code for **"MethFinder: a DNA-sequen
 8. **`train.py`**: Script for training the models.
 9. **`predict.py`**: A predictor capable of loading and executing pre-trained models.
 10. **`reproduce_reslts.py`**: A script designed for one-click reproduction of all results reported in the paper.
+11. **`environment.txt`**: It includes the required environment dependencies for running MethFinder.
 
 ### Generated Files and Directories
 
-1. `umap`: Contains visualizations of the dataset using Uniform Manifold Approximation and Projection (UMAP).
-2. `acc_loss_plot`: Contains plots showing accuracy and loss over the training period.
-3. `models`: Directory where the trained models are saved.
-4. `results.csv`: A CSV file that stores the evaluation results, including performance metrics like ACC, SN, SP, AUC, MCC, and F1-Score.
+1. **`seeds`**: MethFinder uses a random seed for each retraining session, and the corresponding training logs are stored in this folder..
+2. **`preds`**: All prediction results will be saved in this folder.
+3. **`reproduce_results`**: All reproduced results will be saved in this folder.
+***`Note`***: These directories are auto-generated upon running the code.
 
 ## Getting Started
 
