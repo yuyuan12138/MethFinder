@@ -40,7 +40,7 @@ def matthews_corrcoef_gpu(y_true: torch.Tensor, y_pred: torch.Tensor) -> torch.T
 
 
 def get_best_mcc(y_true: np.ndarray, y_logits: np.ndarray):
-    """用 MCC 搜索最优阈值"""
+    """Search for the optimal threshold using MCC"""
     y_true_t = torch.tensor(y_true, dtype=torch.long)
     y_probs = F.softmax(torch.tensor(y_logits, dtype=torch.float32), dim=1)
 
@@ -63,7 +63,7 @@ def get_best_mcc(y_true: np.ndarray, y_logits: np.ndarray):
 
 # ---------------- Train & Eval function ----------------
 def train_and_evaluate(data_name, seed, metric_type, device):
-    """严格复现原训练逻辑"""
+    """Reproduce the original training logic precisely"""
     print(f"\n[INFO] Dataset: {data_name} | Seed={seed} | MetricType={metric_type}")
     set_seed(seed)
 
@@ -105,10 +105,10 @@ def train_and_evaluate(data_name, seed, metric_type, device):
         all_labels = np.concatenate(all_labels)
         all_outputs = np.concatenate(all_outputs)
 
-        # 阈值搜索（始终用 MCC 搜索）
+        # Threshold search
         mcc, threshold, y_pred, prob = get_best_mcc(all_labels, all_outputs)
 
-        # 计算指标
+        # Compute evaluation metrics
         acc = accuracy_score(all_labels, y_pred)
         sn = recall_score(all_labels, y_pred)
         cm = confusion_matrix(all_labels, y_pred)
@@ -134,7 +134,7 @@ def train_and_evaluate(data_name, seed, metric_type, device):
             best_ap = ap
             best_mcc = mcc
 
-    # 返回指标
+    # return 
     return {
         "ACC": best_acc,
         "SN": best_sn,
@@ -166,7 +166,7 @@ def main():
     device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
     os.makedirs("./reproduce_results", exist_ok=True)
 
-    # ---------- Human ----------
+    # ---------- cancer_meth ----------
     human_seed = 2150949149
     human_metrics = train_and_evaluate("cancer_meth", human_seed, metric_type="MCC", device=device)
     pd.DataFrame([human_metrics]).to_csv("./reproduce_results/cancer_meth_reproduce.csv", index=False)
@@ -195,3 +195,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
