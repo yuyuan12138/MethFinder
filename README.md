@@ -7,9 +7,9 @@
     - [Generated Files and Directories](#generated-files-and-directories)
   - [Getting Started](#getting-started)
     - [Installation](#installation)
-    - [Training the Model](#training-the-model)
-      - [Command-Line Arguments](#command-line-arguments)
-    - [Viewing Results](#viewing-results)
+    - [Eproducing the results from the MethFinder paper](#Eproducing the results from the MethFinder paper)
+    - [Using the MethFinder tool for methylation prediction](#Using the MethFinder tool for methylation prediction)
+    - [Applying the MethFinder framework for custom training and prediction tasks](#Applying the MethFinder framework for custom training and prediction tasks)
   - [Future Work](#future-work)
 
 ## Introduction
