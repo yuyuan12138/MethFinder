@@ -53,7 +53,7 @@ class MyDataset(Data.Dataset):
     def __getitem__(self, index):
         return (self.features[index], self.labels[index])
 
-# ----------------------- 以下为新增内容，用于预测时加载无标签数据 -----------------------
+# ----------------------- Load unlabeled data for prediction -----------------------
 
 class MyDatasetTest(Data.Dataset):
     """
@@ -85,7 +85,7 @@ class MyDatasetTest(Data.Dataset):
         return len(self.sequences)
 
     def __getitem__(self, index):
-        # 返回原始序列和对应的one-hot张量
+        # Returns the original sequence and its corresponding one-hot encoded tensor
         return self.sequences[index], self.features[index]
 
 
@@ -95,7 +95,7 @@ def get_test_dataloader(test_path, batch_size=1024):
     """
     test_data = pd.read_csv(test_path, sep='\t')
 
-    # 自动识别列名或默认使用第一列
+    # Automatically identifies column names or defaults to using the first column
     if 'text' in test_data.columns:
         sequences = test_data['text']
     else:
@@ -105,4 +105,5 @@ def get_test_dataloader(test_path, batch_size=1024):
     test_dataset = MyDatasetTest(sequences)
     test_loader = Data.DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
     return test_loader
+
 
