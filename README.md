@@ -14,13 +14,13 @@
 
 ## Introduction
 
-This repository contains the implementation code for **"MethFinder: A Novel Approach to DNA Methylation Prediction Using Adversarial-Specificity Convolutional and Specificity Transformer Techniques."** MethFinder is designed to predict DNA methylation sites with a focus on adversarial specificity and advanced machine learning models.
+This repository contains the implementation code for **"MethFinder: a DNA-sequence decoder pinpointing cancer-type-specific driver methylation."** MethFinder is a deep learning framework designed to directly predict cancer-type-specific driver DNA methylation from local DNA sequence patterns. It consists of two core modules: the first captures the intrinsic methylation potential of a sequence, while the second evaluates its driver methylation potential in the context of a specific cancer type.
 
 ## Directory Overview
 
 ### Pre-existing Directories and Files
 
-1. **`combined_data`**: Contains datasets used for training the pretrained models.
+1. **`Datasets`**: It includes a cancer methylation dataset folder (`cancer_meth`) used for training the model, along with folders of driver methylation datasets for 16 cancer types, each named with the cancer abbreviation (e.g., `BLCA`). Every folder contains both a `train.tsv` and a `test.tsv` file..
 2. **`data`**: The main dataset used in the paper.
 3. **`pretrain-model`**: Directory for pretrained models for different types of DNA methylation (4mC, 5hmC, 6mA).
 4. **`model`**: Contains the model architecture code.
