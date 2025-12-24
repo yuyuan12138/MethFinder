@@ -103,11 +103,15 @@ python predict.py -step 1 -test xxx.tsv -output xxxx
 Parameter descriptions；
 
 * `-step`: specifies which MethFinder module to use:
+  
   `-step 1` for genome-wide methylation prediction under a cancer background,
+  
   `-step 2` for identifying cancer-type-specific driver methylation events.
 
 * `-test`: specifies the path to your test file.
+  
   The test file must be in `.tsv` format with a single column named `text`.
+  
   You can refer to `test_example.tsv` in the main directory for reference.
 
 * `-output`: specifies the name of the output file.
