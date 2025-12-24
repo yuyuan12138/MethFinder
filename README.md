@@ -7,7 +7,7 @@
     - [Generated Files and Directories](#generated-files-and-directories)
   - [Getting Started](#getting-started)
     - [Installation](#installation)
-    - [Eproducing the results from the MethFinder paper](#eproducing-the-results-from-the methFinder-paper)
+    - [Eproducing the results from the MethFinder paper](#eproducing-the-results-from-the-methFinder-paper)
     - [Using the MethFinder tool for methylation prediction](#using-the-methFinder-tool-for-methylation-prediction)
     - [Applying the MethFinder framework for custom training and prediction tasks](#applying-the-methFinder-framework-for-custom-training-and-prediction-tasks)
   - [Future Work](#future-work)
