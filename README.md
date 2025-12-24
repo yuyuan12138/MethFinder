@@ -44,7 +44,7 @@ This repository contains the implementation code for **"MethFinder: a DNA-sequen
 
 This section details the usage and operation of the MethFinder framework.
 
-### ① Installation
+### Installation
 
 To set up the environment, follow these steps:
 
