@@ -103,7 +103,7 @@ Parameter descriptions；
 
 * `-step`: specifies which MethFinder module to use:
   
-  `-step 1` for genome-wide methylation prediction under a cancer background,
+  `-step 1` for methylation status prediction under a cancer background,
   
   `-step 2` for identifying cancer-type-specific driver methylation events.
 
