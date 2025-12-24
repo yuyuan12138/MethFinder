@@ -67,7 +67,7 @@ To set up the environment, follow these steps:
     conda activate MethFinder
     ```
 
-### Eproducing the results from the MethFinder paper
+### Reproducing the results from the MethFinder paper
 
 To reproduce the results reported in the paper, make sure the following files exist in the main directory:
 
