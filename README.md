@@ -21,13 +21,15 @@ This repository contains the implementation code for **"MethFinder: a DNA-sequen
 ### Pre-existing Directories and Files
 
 1. **`Datasets`**: It includes a cancer methylation dataset folder (`cancer_meth`) used for training the model, along with folders of driver methylation datasets for 16 cancer types, each named with the cancer abbreviation (e.g., `BLCA`). Every folder contains both a `train.tsv` and a `test.tsv` file..
-2. **`data`**: The main dataset used in the paper.
-3. **`pretrain-model`**: Directory for pretrained models for different types of DNA methylation (4mC, 5hmC, 6mA).
-4. **`model`**: Contains the model architecture code.
-5. **`utils`**: Includes utility functions to facilitate various operations.
+2. **`models`**: The folder stores the pre-trained model parameters provided in the study. Each file is named according to its corresponding dataset, such as `cancer_meth.pth`, `BLCA.pth`, and so on. User-trained models will also be automatically saved to this folder in the future.
+3. **`Conv1d_weight`**: One of the key components of the MethFinder model.
+4. **`model`**: Contains the MethFinder architecture code.
+5. **`Transformer_weight`**: One of the key components of the MethFinder model.
 6. **`config.py`**: Configurations for hyperparameters.
 7. **`data.py`**: Handles data preprocessing.
 8. **`train.py`**: Script for training the models.
+9. **`predict.py`**: A predictor capable of loading and executing pre-trained models.
+10. **`reproduce_reslts.py`**: A script designed for one-click reproduction of all results reported in the paper.
 
 ### Generated Files and Directories
 
