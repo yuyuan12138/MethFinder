@@ -61,12 +61,10 @@ To set up the environment, follow these steps:
     conda env create -f environment.yml
     ```
 
-3. **Install the required packages**:
-
-   This project uses PyTorch 1.12.0+cu116. You may choose a compatible version if necessary. Refer to the official [PyTorch installation guide](https://pytorch.org/get-started/locally/) for more details.
+3. **Activate the environment**:
 
     ```bash
-    pip install -r requirements.txt
+    conda activate MethFinder
     ```
 
 ### Eproducing the results from the MethFinder paper
@@ -86,6 +84,8 @@ This will automatically create a folder named `reproduce_results/`, which contai
 * `human_reproduce.csv`: Reproduction of the first-stage results (methylation prediction).
 * `cancer_reproduce.csv`: Reproduction of the second-stage results (cancer-specific methylation prediction).
 
+
+***Note:*** Result reproduction will fully restore the model training and prediction process described in the article. The runtime is relatively long and is expected to complete in approximately 15 minutes.
 
 ### Using the MethFinder tool for methylation prediction
 
